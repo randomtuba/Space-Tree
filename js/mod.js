@@ -13,14 +13,19 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.1",
-	name: "Give Me Some Space",
+	num: "0.1.1",
+	name: "Space Dust",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
+  <span style="color:red">Warning: SPOILERS!</span><br><br>
+  <h3>v0.1.1: Space Dust</h3><br>
+		- Added the D layer (Dust).<br>
+		- Added 4 Dust types.<br>
+    - Added 8 buyables.<br><br>
 	<h3>v0.1: Give Me Some Space</h3><br>
 		- Added the S layer (Space).<br>
-		- Added 5 Space Buildings.`
+		- Added 5 Space Buildings.<br><br>`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
@@ -44,6 +49,8 @@ function getPointGen() {
 
 	let gain = buyableEffect("s",11)
   gain = gain.mul(buyableEffect("s",12))
+  gain = gain.mul(buyableEffect("d",12))
+  gain = gain.mul(buyableEffect("d",42))
   if(gain.gte(1e50)) gain = gain.pow(0.5).mul(1e25)
 	return gain
 }
@@ -53,13 +60,13 @@ function addedPlayerData() { return {
 }}
 
 // Display extra things at the top of the page
-var displayThings = [`<span>Current Endgame: 39 space energy</span>`,
+var displayThings = [`<span>Current Endgame: 85 space energy</span>`,
         () => player.points.gte("1e50") ? '<span style="color:gray; font-size:11px;">Your point gain is divided by ' + format(getPointGen().div(1e50)) + ' due to Space Condensing!</span>' : '',
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.s.points.gte(39)
+	return player.s.points.gte(85)
 }
 
 

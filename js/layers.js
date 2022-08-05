@@ -312,7 +312,7 @@ addLayer("s", {
       1: {
         requirementDescription: "95 space energy",
         effectDescription() {return `Gain a multiplier to Points based on space energy.<br>Currently: ${format(Decimal.pow(1.5,player.s.points))}x`},
-        done() {return player.s.points.gte(85)},
+        done() {return player.s.points.gte(95)},
         unlocked() {return player.s.points.gte(85)},
       },
       2: {

@@ -3,7 +3,7 @@ let modInfo = {
 	id: "waste_of_space",
 	author: "randomtuba",
 	pointsName: "points",
-	modFiles: ["layers.js", "tree.js"],
+	modFiles: ["layers.js", "tree.js", "achievements.js"],
 
 	discordName: "tuba's new place",
 	discordLink: "https://discord.gg/HhcavwM5rm",
@@ -13,17 +13,27 @@ let modInfo = {
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.1.1",
-	name: "Space Dust",
+	num: "0.1.2",
+	name: "Spacebar",
 }
 
 let changelog = `<h1>Changelog:</h1><br>
   <span style="color:red">Warning: SPOILERS!</span><br><br>
-  <h3>v0.1.1: Space Dust</h3><br>
+  <h3 style="color:lime">v0.1.2: Spacebar</h3><br>
+  <span style="color:lime">Endgame for this version: 114 space energy</span><br>
+		- Added a new mechanic for the S layer.<br>
+    - Added 3 milestones.<br>
+		- Added 6 achievements.<br>
+    - Primary and Secondary Space Buildings now show their bases in their descriptions.<br>
+    - Made changelog look nicer.<br><br>
+  <h3 style="color:#9e8f67">v0.1.1: Space Dust</h3><br>
+  <span style="color:#9e8f67">Endgame for this version: 85 space energy</span><br>
 		- Added the D layer (Dust).<br>
 		- Added 4 Dust types.<br>
-    - Added 8 buyables.<br><br>
-	<h3>v0.1: Give Me Some Space</h3><br>
+    - Added 8 buyables.<br>
+    - Rebalanced S layer.<br><br>
+	<h3 style="color:white">v0.1: Give Me Some Space</h3><br>
+  <span style="color:white">Endgame for this version: 39 space energy</span><br>
 		- Added the S layer (Space).<br>
 		- Added 5 Space Buildings.<br><br>`
 
@@ -51,7 +61,9 @@ function getPointGen() {
   gain = gain.mul(buyableEffect("s",12))
   gain = gain.mul(buyableEffect("d",12))
   gain = gain.mul(buyableEffect("d",42))
+  if(hasMilestone("s",1)) gain = gain.mul(Decimal.pow(1.5,player.s.points))
   if(gain.gte(1e50)) gain = gain.pow(0.5).mul(1e25)
+  gain = gain.mul(spacebarEffect(2))
 	return gain
 }
 
@@ -60,13 +72,13 @@ function addedPlayerData() { return {
 }}
 
 // Display extra things at the top of the page
-var displayThings = [`<span>Current Endgame: 85 space energy</span>`,
+var displayThings = [`<span>Current Endgame: 114 space energy</span>`,
         () => player.points.gte("1e50") ? '<span style="color:gray; font-size:11px;">Your point gain is divided by ' + format(getPointGen().div(1e50)) + ' due to Space Condensing!</span>' : '',
 ]
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.s.points.gte(85)
+	return player.s.points.gte(114)
 }
 
 
